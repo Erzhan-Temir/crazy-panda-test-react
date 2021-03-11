@@ -1,7 +1,22 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import {useSelector, useDispatch} from 'react-redux';
+import {getLoadingState, getItems} from '../../reducer/selectors';
+import {Operations} from '../../reducer/reducer';
 import './table.css';
 
 const Table = () => {
+  const dispatch = useDispatch();
+  const isLoading = useSelector(getLoadingState);
+  const tableItems = useSelector(getItems);
+
+  useEffect(() => {
+    dispatch(Operations.requestData);
+  }, []);
+
+  if (isLoading) {
+    return <p>Loading...</p>;
+  }
+
   return (
     <div className="main-board__table">
       <table>
@@ -9,25 +24,19 @@ const Table = () => {
           <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>Email</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>id labore ex et quam laborum</td>
-            <td>test@test.ru</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>quo vero reiciendis velit similique earu</td>
-            <td>mock@mock.ru</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>simple text</td>
-            <td>fake@fake.ru</td>
-          </tr>
+          {
+            tableItems.map(({id, name}) => {
+              return (
+                <tr key={id}>
+                  <td>{id}</td>
+                  <td>{name}</td>
+                </tr>
+              );
+            })
+          }
         </tbody>
       </table>
     </div>
