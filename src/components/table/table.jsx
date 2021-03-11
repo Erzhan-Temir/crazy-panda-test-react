@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import {getLoadingState, getItems} from '../../reducer/selectors';
 import {Operations} from '../../reducer/reducer';
@@ -8,6 +8,23 @@ const Table = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector(getLoadingState);
   const tableItems = useSelector(getItems);
+  const [idSorting, setIdSorting] = useState(`inc`);
+  const [nameSorting, setNameSorting] = useState(`inc`);
+  const sortedItems = tableItems.slice();
+
+  sortedItems.sort((a, b) => {
+    if (idSorting === `inc`) {
+      return a.id - b.id;
+    }
+    return b.id - a.id;
+  });
+
+  sortedItems.sort((a, b) => {
+    if (nameSorting === `inc`) {
+      return sortedItems;
+    }
+    return b.name.length - a.name.length;
+  });
 
   useEffect(() => {
     dispatch(Operations.requestData);
@@ -22,13 +39,21 @@ const Table = () => {
       <table>
         <thead>
           <tr>
-            <th>ID</th>
-            <th>Name</th>
+            <th
+              onClick={() => {
+                return idSorting === `inc` ? setIdSorting(`dec`) : setIdSorting(`inc`);
+              }}
+            >ID</th>
+            <th
+              onClick={() => {
+                return nameSorting === `inc` ? setNameSorting(`dec`) : setNameSorting(`inc`);
+              }}
+            >Name</th>
           </tr>
         </thead>
         <tbody>
           {
-            tableItems.map(({id, name}) => {
+            sortedItems.map(({id, name}) => {
               return (
                 <tr key={id}>
                   <td>{id}</td>
