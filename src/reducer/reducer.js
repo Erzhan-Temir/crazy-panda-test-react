@@ -6,6 +6,7 @@ const initialState = {
   isLoading: false,
   hasError: false,
   currentPage: 1,
+  currentFilter: ``,
 };
 
 export const Actions = {
@@ -13,6 +14,7 @@ export const Actions = {
   REQUEST_DATA_SUCCESS: `REQUEST_DATA_SUCCESS`,
   REQUEST_DATA_ERROR: `REQUEST_DATA_ERROR`,
   CHANGE_CURRENT_PAGE: `CHANGE_CURRENT_PAGE`,
+  CHANGE_CURRENT_FILTER: `CHANGE_CURRENT_FILTER`,
 };
 
 export const ActionsCreator = {
@@ -37,7 +39,13 @@ export const ActionsCreator = {
       type: Actions.CHANGE_CURRENT_PAGE,
       payload: changeValue,
     };
-  }
+  },
+  changeCurrentFilter: (filterValue) => {
+    return {
+      type: Actions.CHANGE_CURRENT_FILTER,
+      payload: filterValue
+    };
+  },
 };
 
 export const Operations = {
@@ -78,7 +86,12 @@ export const reducer = (state = initialState, action) => {
       });
     case Actions.CHANGE_CURRENT_PAGE:
       return Object.assign({}, state, {
+        currentFilter: ``,
         currentPage: getNewPageNumber(state.currentPage, state.data.length, action.payload),
+      });
+    case Actions.CHANGE_CURRENT_FILTER:
+      return Object.assign({}, state, {
+        currentFilter: action.payload,
       });
     default:
       return state;
