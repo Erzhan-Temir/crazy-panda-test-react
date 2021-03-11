@@ -1,0 +1,13 @@
+.main-board__table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.main-board__table td, .main-board__table th {
+  padding: 5px;
+  border: 2px solid dimgray;
+}
+
+.main-board__table td:nth-child(2), .main-board__table th:nth-child(2) {
+  min-width: 450px;
+}

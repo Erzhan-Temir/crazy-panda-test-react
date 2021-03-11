@@ -1,0 +1,36 @@
+body {
+  background-color: #e5e5e5;
+  font-family: 'Open Sans', Arial, serif;
+  font-size: 20px;
+  line-height: 20px;
+}
+
+.main-board {
+  margin-top: 200px;
+}
+
+.main-board__wrapper {
+  width: 720px;
+  margin: 0 auto;
+  padding: 20px;
+
+  box-sizing: border-box;
+
+  background-color: #c3c3c3;
+}
+
+.visually-hidden:not(:focus):not(:active),
+input[type="checkbox"].visually-hidden,
+input[type="radio"].visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  -webkit-clip-path: inset(100%);
+          clip-path: inset(100%);
+  clip: rect(0, 0, 0, 0);
+  overflow: hidden;
+}
