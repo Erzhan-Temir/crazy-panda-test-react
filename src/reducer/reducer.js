@@ -1,5 +1,5 @@
-import API from '../services/api';
 import {ITEM_SHOW_COUNT} from '../constants/const';
+import {Actions} from './actions';
 
 const initialState = {
   data: [],
@@ -9,64 +9,20 @@ const initialState = {
   currentFilter: ``,
 };
 
-export const Actions = {
-  REQUEST_DATA: `REQUEST_DATA`,
-  REQUEST_DATA_SUCCESS: `REQUEST_DATA_SUCCESS`,
-  REQUEST_DATA_ERROR: `REQUEST_DATA_ERROR`,
-  CHANGE_CURRENT_PAGE: `CHANGE_CURRENT_PAGE`,
-  CHANGE_CURRENT_FILTER: `CHANGE_CURRENT_FILTER`,
-};
+const getNewPageNumber = (state, changeValue) => {
+  const currentPage = state.currentPage;
+  const newPageNumber = currentPage + changeValue;
+  const maxPageNumber = state.data.length / ITEM_SHOW_COUNT;
 
-export const ActionsCreator = {
-  requestData: () => {
-    return {
-      type: Actions.REQUEST_DATA,
-    };
-  },
-  requestDataSuccess: (loadedData) => {
-    return {
-      type: Actions.REQUEST_DATA_SUCCESS,
-      payload: loadedData,
-    };
-  },
-  requestDataError: () => {
-    return {
-      type: Actions.REQUEST_DATA_ERROR,
-    };
-  },
-  changeCurrentPage: (changeValue) => {
-    return {
-      type: Actions.CHANGE_CURRENT_PAGE,
-      payload: changeValue,
-    };
-  },
-  changeCurrentFilter: (filterValue) => {
-    return {
-      type: Actions.CHANGE_CURRENT_FILTER,
-      payload: filterValue
-    };
-  },
-};
-
-export const Operations = {
-  requestData: (dispatch) => {
-    dispatch(ActionsCreator.requestData());
-    API.getComments()
-      .then((data) => dispatch(ActionsCreator.requestDataSuccess(data)))
-      .catch(dispatch(ActionsCreator.requestDataError()));
-  },
-};
-
-const getNewPageNumber = (currentPage, totalLength, changeValue) => { // ref
-  if (currentPage + changeValue <= 0) {
+  if (newPageNumber <= 0) {
     return 1;
   }
 
-  if (currentPage + changeValue > totalLength / ITEM_SHOW_COUNT) { // ref if max is float
-    return totalLength / ITEM_SHOW_COUNT;
+  if (newPageNumber > maxPageNumber) {
+    return maxPageNumber;
   }
 
-  return currentPage + changeValue;
+  return newPageNumber;
 };
 
 export const reducer = (state = initialState, action) => {
@@ -87,7 +43,7 @@ export const reducer = (state = initialState, action) => {
     case Actions.CHANGE_CURRENT_PAGE:
       return Object.assign({}, state, {
         currentFilter: ``,
-        currentPage: getNewPageNumber(state.currentPage, state.data.length, action.payload),
+        currentPage: getNewPageNumber(state, action.payload),
       });
     case Actions.CHANGE_CURRENT_FILTER:
       return Object.assign({}, state, {

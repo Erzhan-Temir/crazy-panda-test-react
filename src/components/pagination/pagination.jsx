@@ -1,6 +1,6 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {ActionsCreator} from '../../reducer/reducer';
+import {ActionsCreator} from '../../reducer/actions';
 import {getCurrentPage} from '../../reducer/selectors';
 import './pagination.css';
 

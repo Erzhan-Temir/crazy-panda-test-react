@@ -1,7 +1,7 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {getCurrentFilter} from '../../reducer/selectors';
-import {ActionsCreator} from '../../reducer/reducer';
+import {ActionsCreator} from '../../reducer/actions';
 import './search-input.css';
 
 const SearchInput = () => {

@@ -1,38 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import {getLoadingState, getItems} from '../../reducer/selectors';
-import {Operations} from '../../reducer/reducer';
+import React from 'react';
+import {compose} from 'redux';
+import PropTypes from 'prop-types';
+import withLoading from '../../hocs/with-loading';
+import withSorting from '../../hocs/with-sorting';
 import './table.css';
 
-const Table = () => {
-  const dispatch = useDispatch();
-  const isLoading = useSelector(getLoadingState);
-  const tableItems = useSelector(getItems);
-  const [idSorting, setIdSorting] = useState(`inc`);
-  const [nameSorting, setNameSorting] = useState(`inc`);
-  const sortedItems = tableItems.slice();
-
-  sortedItems.sort((a, b) => {
-    if (idSorting === `inc`) {
-      return a.id - b.id;
-    }
-    return b.id - a.id;
-  });
-
-  sortedItems.sort((a, b) => {
-    if (nameSorting === `inc`) {
-      return sortedItems;
-    }
-    return b.name.length - a.name.length;
-  });
-
-  useEffect(() => {
-    dispatch(Operations.requestData);
-  }, []);
-
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
+const Table = (props) => {
+  const {sortedItems, toggleIdSorting, toggleNameSorting} = props;
 
   return (
     <div className="main-board__table">
@@ -40,14 +14,10 @@ const Table = () => {
         <thead>
           <tr>
             <th
-              onClick={() => {
-                return idSorting === `inc` ? setIdSorting(`dec`) : setIdSorting(`inc`);
-              }}
+              onClick={() => toggleIdSorting()}
             >ID</th>
             <th
-              onClick={() => {
-                return nameSorting === `inc` ? setNameSorting(`dec`) : setNameSorting(`inc`);
-              }}
+              onClick={() => toggleNameSorting()}
             >Name</th>
           </tr>
         </thead>
@@ -68,4 +38,10 @@ const Table = () => {
   );
 };
 
-export default Table;
+Table.propTypes = {
+  sortedItems: PropTypes.array.isRequired,
+  toggleIdSorting: PropTypes.func.isRequired,
+  toggleNameSorting: PropTypes.func.isRequired,
+};
+
+export default compose(withLoading, withSorting)(Table);

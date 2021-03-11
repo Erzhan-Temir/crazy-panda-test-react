@@ -2,6 +2,7 @@ import React from 'react';
 import Pagination from '../pagination/pagination';
 import SearchInput from '../search-input/search-input';
 import Table from '../table/table';
+import withErrorBoundary from '../../hocs/with-error-boundary';
 import './app.css';
 
 function App() {
@@ -17,4 +18,4 @@ function App() {
   );
 }
 
-export default App;
+export default withErrorBoundary(App);
