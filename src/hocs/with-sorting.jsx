@@ -13,8 +13,11 @@ const withSorting = (Component) => {
     const sortedItems = tableItems.slice();
 
 
-    sortedItems.sort(() => {
-      return idSortingValue;
+    sortedItems.sort((a, b) => {
+      if (idSortingValue === idSortingValues.toUp) {
+        return a.id - b.id;
+      }
+      return b.id - a.id;
     });
 
     sortedItems.sort((a, b) => {
