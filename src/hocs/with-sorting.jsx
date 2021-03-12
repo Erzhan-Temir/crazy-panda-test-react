@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import {useSelector} from 'react-redux';
 import {getItems} from '../reducer/selectors';
 import {idSortingValues, nameSortingValues} from '../constants/const';
+import {useSelector} from 'react-redux';
 
 const withSorting = (Component) => {
   const WithSorting = (props) => {

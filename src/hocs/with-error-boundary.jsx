@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import {ActionsCreator} from '../reducer/actions';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 
 const withErrorBoundary = (BaseComponent) => {
   class WithErrorBoundary extends Component {

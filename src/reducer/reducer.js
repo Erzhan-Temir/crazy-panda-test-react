@@ -1,5 +1,5 @@
-import {ITEM_SHOW_COUNT} from '../constants/const';
 import {Actions} from './actions';
+import {ITEM_SHOW_COUNT} from '../constants/const';
 
 const initialState = {
   data: [],
@@ -9,10 +9,10 @@ const initialState = {
   currentFilter: ``,
 };
 
-const getNewPageNumber = (state, changeValue) => {
+export const getNewPageNumber = (state, changeValue) => {
   const currentPage = state.currentPage;
-  const newPageNumber = currentPage + changeValue;
-  const maxPageNumber = state.data.length / ITEM_SHOW_COUNT;
+  const newPageNumber = Math.round(currentPage + changeValue);
+  const maxPageNumber = Math.round(state.data.length / ITEM_SHOW_COUNT);
 
   if (newPageNumber <= 0) {
     return 1;
@@ -24,6 +24,7 @@ const getNewPageNumber = (state, changeValue) => {
 
   return newPageNumber;
 };
+
 
 export const reducer = (state = initialState, action) => {
   switch (action.type) {

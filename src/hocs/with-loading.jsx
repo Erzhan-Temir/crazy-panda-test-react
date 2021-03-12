@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
 import {getLoadingState} from '../reducer/selectors';
 import {Operations} from '../reducer/actions';
 import LoadingStub from '../components/loading-stub/loading-stub';
+import {useSelector, useDispatch} from 'react-redux';
 
 const withLoadings = (Component) => {
   const WithLoading = (props) => {

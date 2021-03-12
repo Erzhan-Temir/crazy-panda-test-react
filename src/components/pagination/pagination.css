@@ -6,3 +6,9 @@
   font-size: 20px;
   line-height: 20px;
 }
+
+.main-board__page-number {
+  display: inline-block;
+  margin: 5px 10px;
+  font-weight: 800;
+}

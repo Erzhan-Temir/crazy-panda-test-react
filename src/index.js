@@ -6,8 +6,6 @@ import {Provider} from 'react-redux';
 import {reducer} from './reducer/reducer';
 import thunk from 'redux-thunk';
 
-// PropTypes!!
-
 const store = createStore(reducer, applyMiddleware(thunk));
 
 ReactDOM.render(
