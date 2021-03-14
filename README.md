@@ -1,4 +1,8 @@
-# Crazy Panda testing project using ReactJS
+## Crazy Panda testing project using ReactJS
+
+### Published version of the project can be found here [GitHub pages](https://erzhan-temir.github.io/crazy-panda-test-react/)
+
+### The project was prepared with reference to the position of Junior Front-end developer at [Crazy Panda](https://crazypanda.ru/)
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
